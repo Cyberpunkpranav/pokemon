@@ -1,0 +1,28 @@
+.pokemon-card{
+    border: 0.5px solid gray;
+    padding: 10px 25px 10px 25px;
+    transition: all 0.4s;
+    cursor: pointer;
+    &:hover{
+        border: 0.5px solid white;
+
+    }
+    & img{
+        width:auto;
+        height: 60%;
+        margin: 0 auto;
+    }
+    & h2 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal; // Ensure text can break into new lines
+        text-overflow: ellipsis;
+        font-size: 1.5rem;
+        @media screen and (min-width:568px) {
+            font-size: 1.8rem;
+        }
+        @media screen and (min-width:1024px) {
+            font-size: 2rem;
+        }
+    }
+}
