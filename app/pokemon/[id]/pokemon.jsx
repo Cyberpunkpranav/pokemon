@@ -31,6 +31,7 @@ const PokemonDetails = ({data}) => {
       </div>
       <div className='my-10'>
         <h2>Stats</h2>
+        
         <div className=''>
         {
           data.stats.map((data,i)=>(
