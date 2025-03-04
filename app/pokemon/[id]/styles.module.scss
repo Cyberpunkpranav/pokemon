@@ -1,0 +1,14 @@
+.pokemon_details{
+   &  .poke_image{
+    width: 30%;
+    height: auto;
+   }
+& .stats{
+    border: 1px solid gray;
+    transition: all 0.4s;
+    &:hover{
+        border: 1px solid white;
+
+    }
+}
+}
