@@ -2,7 +2,7 @@ import React from 'react'
 
 const Loading = () => {
   return (
-    <div className='container mx-auto text-white'>Loading... pokemons</div>
+    <div className='container h-[90vh] grid place-items-center mx-auto text-white'>Loading... pokemons</div>
   )
 }
 
