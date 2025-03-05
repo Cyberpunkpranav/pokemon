@@ -5,7 +5,6 @@ import styles from './style.module.scss'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 const PokemonList = ({data}) => {
-  console.log('data',data)
   const router = useRouter()
   const params = useSearchParams()
   const searchparam = params.get('search')
@@ -13,7 +12,6 @@ const PokemonList = ({data}) => {
   useEffect(()=>{
     if(!search || search.length==0)router.push('/')
   },[search])
-console.log(data)
   return (
     <section className='container mx-auto px-5 md:px-4 lg:px-2'>
     <div className='w-full text-center my-5'>

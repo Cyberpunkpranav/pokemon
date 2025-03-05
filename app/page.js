@@ -29,10 +29,8 @@ export default async function Home({searchParams}) {
         }
   
         const data = await res.json(); // Ensure response is valid JSON
-        console.log("Fetched Data:", data);
         return data;
       } catch (e) {
-        console.error("Error fetching data:", e.message);
         return []; // Return empty array instead of raw error message
       }
     } else {

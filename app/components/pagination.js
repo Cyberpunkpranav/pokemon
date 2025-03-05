@@ -3,7 +3,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 
 const Pagination = ({next,prev}) => {
-  console.log(next,prev)
     const router = useRouter()
     const params = useSearchParams()
     const offset = params.get('offset') 
@@ -20,7 +19,6 @@ const Pagination = ({next,prev}) => {
         }
         return null
     } 
-    console.log(offset);
     
   return (
     <div className='fixed bottom-0 mb-5 flex items-center w-full px-10 justify-between' style={{left:'50%', transform:"translateX(-50%)"}}>

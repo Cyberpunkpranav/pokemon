@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 
 const PokemonDetails = ({data}) => {
   const router = useRouter()
-  console.log(data)
   return (
     <section className='container h-[100vh] p-4 md:p-7 lg:p-10 mx-auto'>
       <h4 className='cursor-pointer' onClick={()=>router.back()}>back</h4>
