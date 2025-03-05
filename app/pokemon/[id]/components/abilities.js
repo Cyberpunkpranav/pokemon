@@ -14,9 +14,9 @@ export default function Abilities({ url }) {
       return (
     <section>
         {
-            data?.effect_entries.map((effect)=>(
+            data?.effect_entries.map((effect,i)=>(
                 effect.language.name=='en' && 
-                <div>
+                <div key={i}>
                 <p>{effect.effect}</p>
                 <p>{effect.short_effect}</p>
                 </div>

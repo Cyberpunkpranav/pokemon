@@ -1,6 +1,7 @@
 import PokemonList from "./pokemon/pokemonList";
 import { Suspense } from "react";
 import Pagination from "./components/pagination";
+import Link from "next/link";
   
 async function getPokemonData(offset) {
   const api = `${process.env.NEXT_PUBLIC_POKE_API}?offset=${offset}&limit=${20}`;
@@ -32,12 +33,13 @@ export default async function Home({searchParams}) {
     })
 
     const pokemons = await AllData
+    console.log(pokemons); 
 
   return (  
     <section className="container relative h-full mx-auto">
       <input type="text"/>
-      <Suspense fallback={<div className="text-white w-full text-center">loading....</div>}>
-      <PokemonList data={pokemons}/>
+      <Suspense fallback={<div className="container mx-auto h-[90vh] grid place-items-center text-white w-full text-center">loading....</div>}>
+      <PokemonList data={pokemons}/>    
       <Pagination prev={data.previous} next={data.next} count={data.count}/>
       </Suspense>
     </section>

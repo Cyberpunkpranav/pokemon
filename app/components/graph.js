@@ -6,7 +6,6 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const PoliwhirlStatsChart = ({labels,data}) => {
-    console.log(labels,data)
     const graph = {
         labels: labels,
         datasets: [

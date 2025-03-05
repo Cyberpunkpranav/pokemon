@@ -9,7 +9,6 @@ const Pagination = ({next,prev,count}) => {
             const next_url =  new URL(url).searchParams
             const limit  =  next_url.get('limit')
             const offset = next_url.get('offset')
-            console.log(action,limit,offset);
             router.push(`/?offset=${offset}`);
         }
         if(action=='next'){
@@ -23,11 +22,11 @@ const Pagination = ({next,prev,count}) => {
 
   return (
     <div>
-    <div className='fixed left-0 ml-5 top-[50%]'>
-    <button className='cursor-pointer'  onClick={()=>{toggleapi('prev',prev)}}>prev</button>
+    <div className='fixed left-0 top-[50%]'>
+    <button className='bg-white px-4 py-2 text-black cursor-pointer'  onClick={()=>{toggleapi('prev',prev)}}>prev</button>
     </div>
-    <div className='fixed mr-5 right-0 top-[50%]'>
-    <button className='cursor-pointer' onClick={()=>{toggleapi('next',next)}}>next</button>
+    <div className='fixed right-0 top-[50%]'>
+    <button className='bg-white px-4 py-2 text-black cursor-pointer' onClick={()=>{toggleapi('next',next)}}>next</button>
     </div>
     </div>
   )
