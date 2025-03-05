@@ -1,7 +1,6 @@
 import PokemonList from "./pokemon/pokemonList";
 import { Suspense } from "react";
 import Pagination from "./components/pagination";
-import Link from "next/link";
   
 async function getPokemonData(offset) {
   const api = `${process.env.NEXT_PUBLIC_POKE_API}?offset=${offset}&limit=${20}`;
@@ -15,32 +14,64 @@ async function getPokemonData(offset) {
 export default async function Home({searchParams}) {
   const params = await searchParams
   const offset = params.offset || 0
+  const search = params.search
+  let next = ''
+  let previous = ''
 
-    const data = await getPokemonData(offset)
-    const alldetails = await data.results.map(async(Data)=>{
-      const res = await fetch(`${Data.url}`,{ 
-        cache: 'force-cache', 
-        next: { revalidate: 3600 } 
+  const ConditionalData = async () => {
+    if (search) {
+      try {
+        let api = `${process.env.NEXT_PUBLIC_POKE_API}/${search}`;
+        const res = await fetch(api);
+  
+        if (!res.ok) {
+          throw new Error(`API Error: ${res.status} ${res.statusText}`);
+        }
+  
+        const data = await res.json(); // Ensure response is valid JSON
+        console.log("Fetched Data:", data);
+        return data;
+      } catch (e) {
+        console.error("Error fetching data:", e.message);
+        return []; // Return empty array instead of raw error message
+      }
+    } else {
+      try {
+        const data = await getPokemonData(offset);
+        next = data.next;
+        previous = data.previous;
+  
+        const alldetails = data.results.map(async (Data) => {
+          const res = await fetch(`${Data.url}`, {
+            cache: "force-cache",
+            next: { revalidate: 3600 },
+          });
+  
+          if (!res.ok) {
+            throw new Error(`Failed to fetch ${Data.url}`);
+          }
+  
+          return res.json();
         });
-   
-      return res.json()
-    })
-
-   const AllData  = Promise.all(alldetails).then((results)=>{
-        return results
-    }).catch((e)=>{
-      console.log(e.message)
-    })
-
-    const pokemons = await AllData
-    console.log(pokemons); 
+  
+        const AllData = await Promise.all(alldetails);
+        return AllData;
+      } catch (e) {
+        console.error("Error in batch fetch:", e.message);
+        return []; // Return empty array on error
+      }
+    }
+  };
+  
+  // Await only once and prevent redundant calls
+  const data = await ConditionalData();
+  
 
   return (  
-    <section className="container relative h-full mx-auto">
-      <input type="text"/>
-      <Suspense fallback={<div className="container mx-auto h-[90vh] grid place-items-center text-white w-full text-center">loading....</div>}>
-      <PokemonList data={pokemons}/>    
-      <Pagination prev={data.previous} next={data.next} count={data.count}/>
+    <section className="relative h-full mx-auto">
+      <Suspense fallback={<div className="container mx-auto h-[90vh] grid place-items-center text-white text-center">loading....</div>}>
+      <PokemonList data={data}/>    
+      <Pagination prev={previous} next={next}/>
       </Suspense>
     </section>
   );

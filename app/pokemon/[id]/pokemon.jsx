@@ -4,11 +4,14 @@ import React from 'react'
 import styles from './styles.module.scss'
 import Abilities from './components/abilities'
 import Stats from './components/stats'
+import { useRouter } from 'next/navigation'
 
 const PokemonDetails = ({data}) => {
+  const router = useRouter()
   console.log(data)
   return (
     <section className='container h-[100vh] p-4 md:p-7 lg:p-10 mx-auto'>
+      <h4 className='cursor-pointer' onClick={()=>router.back()}>back</h4>
     <div className={styles.pokemon_details}>
       <div className="flex w-full items-center lg:justify-content-between">
       <Image className={styles.poke_image} width={100} height={100} src={data.sprites.other.dream_world.front_default}/>
